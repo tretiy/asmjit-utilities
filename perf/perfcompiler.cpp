@@ -19,7 +19,7 @@ asmjit::Error PerfCompiler::finalize(JitDump &jd){
 	asmjit::x86::Assembler a(_code);
 
 	//FIXME: mostly copy & paste from BaseBuilder::serialize(), only handling of InstNode differs
-	asmjit::BaseNode *node_ = _firstNode;
+	asmjit::BaseNode *node_ = firstNode();
 	do {
 		a.setInlineComment(node_->inlineComment());
 
@@ -49,7 +49,7 @@ asmjit::Error PerfCompiler::finalize(JitDump &jd){
 			err = a.align(node->alignMode(), node->alignment());
 		} else if (node_->isEmbedData()) {
 			asmjit::EmbedDataNode *node = node_->as<asmjit::EmbedDataNode>();
-			err = a.embed(node->data(), node->size());
+			err = a.embed(node->data(), node->dataSize());
 		} else if (node_->isEmbedLabel()) {
 			asmjit::EmbedLabelNode *node = node_->as<asmjit::EmbedLabelNode>();
 			err = a.embedLabel(node->label());

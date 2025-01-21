@@ -3,12 +3,12 @@
 
 #include <vector>
 
-#include <asmjit/x86/x86compiler.h>
+#include <asmjit/x86/x86builder.h>
 
 // just forward declare, no need for full header
 class JitDump;
 
-class PerfCompiler : public asmjit::x86::Compiler {
+class PerfCompiler : public asmjit::x86::Builder {
 private:
 	struct DebugLine {
 		const char *file;
@@ -19,7 +19,7 @@ private:
 	std::vector<DebugLine> debugLines;
 
 public:
-	explicit PerfCompiler(asmjit::CodeHolder *code=nullptr) noexcept : asmjit::x86::Compiler(code) {}
+	explicit PerfCompiler(asmjit::CodeHolder *code=nullptr) noexcept : asmjit::x86::Builder(code) {}
 	virtual ~PerfCompiler() {}
 
 	// implicitly attached to latest node
